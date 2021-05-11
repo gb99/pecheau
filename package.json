@@ -1,0 +1,20 @@
+{
+  "name": "pecheau",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TPrevoteau/pecheau.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TPrevoteau/pecheau/issues"
+  },
+  "homepage": "https://github.com/TPrevoteau/pecheau#readme"
+}
