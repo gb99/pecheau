@@ -8,35 +8,52 @@ class Hubeau extends React.Component {
       this.state = {
         error: null,
         isLoaded: false,
+        items: [],
         data: []
       };
     }
 
+//https://mbm11j64gj.execute-api.eu-west-3.amazonaws.com/default/GetCodeStation
     componentDidMount() {
-      fetch("https://hubeau.eaufrance.fr/api/v0/etat_piscicole/lieux_peche?code_espece_poisson=ABH%2CABL&format=json&size=50")
-        .then(res => res.json())
-        .then(
-          (result) => {
-            this.setState({
-              isLoaded: true,
-              data: result.data
-            });
-          },
-          // Note: it's important to handle errors here
-          // instead of a catch() block so that we don't swallow
-          // exceptions from actual bugs in components.
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            });
-          }
-        )
+      fetch("https://mbm11j64gj.execute-api.eu-west-3.amazonaws.com/default/GetCodeStation")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result.Items
+          });
+        }
+      )
+    }
+
+    fishByStation(stationId){
+      console.log(stationId)
+      fetch("https://hubeau.eaufrance.fr/api/v0/etat_piscicole/poissons?code_station="+ stationId +"%2C01020102&format=json&size=20")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            data: result.data
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
     }
 
 
     render() {
-      const { error, isLoaded, data } = this.state;
+      
+      const { error, isLoaded, data, items } = this.state;
       if (error) {
         return <div>Error: {error.message}</div>;
       } else if (!isLoaded) {
@@ -50,18 +67,19 @@ class Hubeau extends React.Component {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-              {data.map(data => <Marker key={data.id} position={[data.y, data.x]}>
+              {items.map(items => <Marker key={items.id} position={[items.y, items.x]}>
                 <Popup>
-                   {data.localisation}
+                
                 </Popup>
               </Marker>)}
 
             </MapContainer>       
-             <ul>
+
+            <ul>
                 {          
-                    data.map(data => (
-                    <li key={data.id}>
-                     {data.x} {data.y}
+                    items.map(items => (
+                    <li key={items.id}>
+                     {items.region} 
                     </li>
                      ))
                 }
