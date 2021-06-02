@@ -1,5 +1,6 @@
 import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
+import centre from "../region/centre.json"
 
 class Hubeau extends React.Component {
     
@@ -9,7 +10,8 @@ class Hubeau extends React.Component {
         error: null,
         isLoaded: false,
         items: [],
-        data: []
+        data: [],
+        region: []
       };
     }
 
@@ -52,7 +54,6 @@ class Hubeau extends React.Component {
 
 
     render() {
-      
       const { error, isLoaded, data, items } = this.state;
       if (error) {
         return <div>Error: {error.message}</div>;
@@ -62,17 +63,29 @@ class Hubeau extends React.Component {
         return (
          <div>
               <MapContainer center={[49.766063546, 3.188467932]} zoom={7} scrollWheelZoom={false}>
+            
              <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                           
 
-              {items.map(items => <Marker key={items.id} position={[items.y, items.x]}>
-                <Popup>
-                
+              {items.map(items => <Marker key={items.id} position={[items.y, items.x]} 
+              eventHandlers={{click: (e) => {this.fishByStation(items.stationId)}}}>
+                <Popup>                 
+                   <ul>
+                    {          
+                       data.map(data => (
+                        <li key={data.id}>
+                          {data.nom_poisson + " : " + data.effectif} 
+                        </li>
+                        ))
+                    }
+                  </ul>
                 </Popup>
-              </Marker>)}
-
+              </Marker>)
+              }
+              <GeoJSON data={centre} />
             </MapContainer>       
 
             <ul>
