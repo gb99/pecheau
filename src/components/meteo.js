@@ -11,7 +11,8 @@ class Meteo extends React.Component {
         isLoaded: false,
         error: null,
         weatherText: null,
-        weatherIcon: null
+        weatherIcon: null,
+        weatherTemp: null
       }
     }
 
@@ -37,10 +38,14 @@ class Meteo extends React.Component {
             var weatherIcon;
             if (result && result.data && result.data.current_condition && result.data.current_condition[0] && result.data.current_condition[0].weatherIconUrl && result.data.current_condition[0].weatherIconUrl[0])
               weatherIcon = result.data.current_condition[0].weatherIconUrl[0].value;
+            var weatherTemp;
+              if (result && result.data && result.data.current_condition && result.data.current_condition[0] && result.data.current_condition[0].temp_C)
+                weatherTemp = result.data.current_condition[0].temp_C;
             this.setState({
               isLoaded: true,
               weatherText: weatherText,
-              weatherIcon: weatherIcon
+              weatherIcon: weatherIcon,
+              weatherTemp: weatherTemp
             });
           }
         }
@@ -48,7 +53,7 @@ class Meteo extends React.Component {
     }
 
     render() {
-      const { isLoaded, error, weatherText, weatherIcon } = this.state;
+      const { isLoaded, error, weatherText, weatherIcon, weatherTemp } = this.state;
       if (!isLoaded) {
         return <div>Chargement de la météo...</div>;
       } else if (error) {
@@ -58,6 +63,7 @@ class Meteo extends React.Component {
          <div className="weather">
             <img className="weather-icon" src={weatherIcon}/>
             <div className="weather-text">{weatherText}</div>
+            <div className="weather-temp">{weatherTemp}°C</div>
           </div>
         );
       }
