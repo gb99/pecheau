@@ -18,7 +18,7 @@ class Meteo extends React.Component {
 
     componentDidMount() {
       var apiKey = CONFIG.weather.apiKey;
-      var apiUrl = 'http://api.worldweatheronline.com/premium/v1/weather.ashx';
+      var apiUrl = CONFIG.weather.apiUrl;
       var requestUrl = `${apiUrl}?key=${apiKey}&q=${this.y},${this.x}&mca=no&fx=no&lang=fr&format=json`;
       fetch(requestUrl)
       .then(res => res.json())
