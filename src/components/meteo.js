@@ -35,12 +35,12 @@ class Meteo extends React.Component {
             else if (result && result.data && result.data.current_condition && result.data.current_condition[0] && result.data.current_condition[0].weatherDesc && result.data.current_condition[0].weatherDesc[0])
               weatherText = result.data.current_condition[0].weatherDesc[0].value;
             var weatherIcon;
-              if (result && result.data && result.data.current_condition && result.data.current_condition[0] && result.data.current_condition[0].weatherIconUrl && result.data.current_condition[0].weatherIconUrl[0])
+            if (result && result.data && result.data.current_condition && result.data.current_condition[0] && result.data.current_condition[0].weatherIconUrl && result.data.current_condition[0].weatherIconUrl[0])
               weatherIcon = result.data.current_condition[0].weatherIconUrl[0].value;
             this.setState({
               isLoaded: true,
               weatherText: weatherText,
-              wearherIcon: weatherIcon
+              weatherIcon: weatherIcon
             });
           }
         }
@@ -55,8 +55,9 @@ class Meteo extends React.Component {
         return <div>La météo n'a pas pu être chargée.</div>;
       } else {
         return (
-         <div>
-            {weatherText}
+         <div className="weather">
+            <img className="weather-icon" src={weatherIcon}/>
+            <div className="weather-text">{weatherText}</div>
           </div>
         );
       }
