@@ -1,10 +1,15 @@
 import React from "react";
 const CONFIG = require('../config');
 
+/**
+ * Meteo is a react component
+ * Props needed : x (longitude)
+ *                y (latitude)
+ */
 class Meteo extends React.Component {
-    
     constructor(props) {
       super(props);
+      // x and y are props for coordinates
       this.x = this.props.x;
       this.y = this.props.y;
       this.state = {
@@ -17,6 +22,7 @@ class Meteo extends React.Component {
     }
 
     componentDidMount() {
+      // Reset state
       this.setState({
         isLoaded: false,
         error: null,
@@ -24,6 +30,7 @@ class Meteo extends React.Component {
         weatherIcon: null,
         weatherTemp: null
       });
+      // Build GET Url for worldweatheronline.com api
       var apiKey = CONFIG.weather.apiKey;
       var apiUrl = CONFIG.weather.apiUrl;
       var requestUrl = `${apiUrl}?key=${apiKey}&q=${this.y},${this.x}&mca=no&fx=no&lang=fr&format=json`;
@@ -37,17 +44,21 @@ class Meteo extends React.Component {
               error: true
             });
           } else {
+            // Find french translation for weather text
             var weatherText;
             if (result && result.data && result.data.current_condition && result.data.current_condition[0] && result.data.current_condition[0].lang_fr && result.data.current_condition[0].lang_fr[0])
               weatherText = result.data.current_condition[0].lang_fr[0].value;
             else if (result && result.data && result.data.current_condition && result.data.current_condition[0] && result.data.current_condition[0].weatherDesc && result.data.current_condition[0].weatherDesc[0])
               weatherText = result.data.current_condition[0].weatherDesc[0].value;
+            // Find weather icon
             var weatherIcon;
             if (result && result.data && result.data.current_condition && result.data.current_condition[0] && result.data.current_condition[0].weatherIconUrl && result.data.current_condition[0].weatherIconUrl[0])
               weatherIcon = result.data.current_condition[0].weatherIconUrl[0].value;
+            // Find weather temperature
             var weatherTemp;
               if (result && result.data && result.data.current_condition && result.data.current_condition[0] && result.data.current_condition[0].temp_C)
                 weatherTemp = result.data.current_condition[0].temp_C;
+            // Update state
             this.setState({
               isLoaded: true,
               weatherText: weatherText,
