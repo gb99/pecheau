@@ -1,4 +1,5 @@
 import React from "react";
+const CONFIG = require('../config');
 
 class Meteo extends React.Component {
     
@@ -15,7 +16,7 @@ class Meteo extends React.Component {
     }
 
     componentDidMount() {
-      var apiKey = '275d268238364a9f865160315210206';
+      var apiKey = CONFIG.weather.apiKey;
       var apiUrl = 'http://api.worldweatheronline.com/premium/v1/weather.ashx';
       var requestUrl = `${apiUrl}?key=${apiKey}&q=${this.y},${this.x}&mca=no&fx=no&lang=fr&format=json`;
       fetch(requestUrl)
