@@ -17,6 +17,13 @@ class Meteo extends React.Component {
     }
 
     componentDidMount() {
+      this.setState({
+        isLoaded: false,
+        error: null,
+        weatherText: null,
+        weatherIcon: null,
+        weatherTemp: null
+      });
       var apiKey = CONFIG.weather.apiKey;
       var apiUrl = CONFIG.weather.apiUrl;
       var requestUrl = `${apiUrl}?key=${apiKey}&q=${this.y},${this.x}&mca=no&fx=no&lang=fr&format=json`;
