@@ -41,3 +41,10 @@
     transform: rotate(360deg);
   }
 }
+
+.weather {
+  text-align: center;
+}
+.weather-icon {
+  width: 40px;
+}
