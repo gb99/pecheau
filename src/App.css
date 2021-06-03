@@ -41,8 +41,6 @@
     transform: rotate(360deg);
   }
 }
-<<<<<<< HEAD
-=======
 
 .weather {
   text-align: center;
@@ -50,4 +48,3 @@
 .weather-icon {
   width: 40px;
 }
->>>>>>> master
