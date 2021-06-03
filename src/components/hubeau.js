@@ -2,6 +2,10 @@ import React from "react";
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
 import centre from "../region/centre.json"
 
+import centre from "../region/centre.json";
+import Meteo from "./meteo.js";
+
+
 class Hubeau extends React.Component {
     
     constructor(props) {
@@ -54,7 +58,15 @@ class Hubeau extends React.Component {
 
 
     render() {
+      var stationByRegion = [];
       const { error, isLoaded, data, items } = this.state;
+
+      stationByRegion = items.filter(function(item){return (item.region === "centre");});
+
+      console.log(stationByRegion);
+      
+      const { error, isLoaded, data, items } = this.state;
+
       if (error) {
         return <div>Error: {error.message}</div>;
       } else if (!isLoaded) {
@@ -70,8 +82,8 @@ class Hubeau extends React.Component {
                 />
                            
 
-              {items.map(items => <Marker key={items.id} position={[items.y, items.x]} 
-              eventHandlers={{click: (e) => {this.fishByStation(items.stationId)}}}>
+              {stationByRegion.map(stationByRegion => <Marker key={stationByRegion.id} position={[stationByRegion.y, stationByRegion.x]} 
+              eventHandlers={{click: (e) => {this.fishByStation(stationByRegion.stationId)}}}>
                 <Popup>                 
                    <ul>
                     {          
