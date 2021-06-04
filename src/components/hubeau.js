@@ -1,7 +1,6 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
 import centre from "../region/centre.json"
-
 import centre from "../region/centre.json";
 import Meteo from "./meteo.js";
 
