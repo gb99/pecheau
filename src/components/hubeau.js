@@ -1,9 +1,7 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
-import centre from "../region/centre.json"
 import centre from "../region/centre.json";
 import Meteo from "./meteo.js";
-
 
 class Hubeau extends React.Component {
     
@@ -83,7 +81,8 @@ class Hubeau extends React.Component {
 
               {stationByRegion.map(stationByRegion => <Marker key={stationByRegion.id} position={[stationByRegion.y, stationByRegion.x]} 
               eventHandlers={{click: (e) => {this.fishByStation(stationByRegion.stationId)}}}>
-                <Popup>                 
+                <Popup>  
+                <Meteo x={items.x} y={items.y}/>               
                    <ul>
                     {          
                        data.map(data => (
