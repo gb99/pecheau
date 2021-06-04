@@ -80,6 +80,7 @@ export class Login extends Component {
 	                buttonText="Se connecter avec Google"
 	                onSuccess={this.loginSuccess}
 	                onFailure={this.loginFailure}
+			cookiePolicy={'https://master.df7a0iba9t0oh.amplifyapp.com'}
 	                isSignedIn={true}
 	            />
         	</header>
